@@ -3,27 +3,38 @@ import java.io.*;
 public class CompanyLockers {
 	public static void main(String[] args) {
 		int option=0;
-		
-		File file = new File("C:\\Users\\Hari\\Desktop\\Project\\Companylockers1");
+	
+		File file = new File("C:\\Users\\Hari\\Desktop\\LockedMe.com\\CompanyLockers");
 		File[] listoffiles = file.listFiles();
 		List<File> arrayoffiles = Arrays.asList(listoffiles);
 		do
 			{
 			System.out.println("Company Lockers Ltd");
+			System.out.println("Developed by Srihari K\t Email:srihari16@gmail.com");
 			System.out.println("Select an option from the menu\n\t1. Display all files\n\t2. Business level operations\n\t3. Exit");
 			Scanner sc = new Scanner(System.in);
-			option = sc.nextInt();
+			try {
+				
+				option = sc.nextInt();
+				if(option>3) {
+					System.out.println("Invalid Input");
+				}
+			}catch(InputMismatchException e)
+			{
+				System.out.println("Invalid Input");
+			}
 			
 			switch (option) {
 			//Option 1 to view files
 				case 1: {
-					
+					int count=1;
 					Collections.sort(arrayoffiles);
 					for (int i = 0; i < listoffiles.length; i++) 
 						{
 					  		if (listoffiles[i].isFile()) 
 					  		{
-					  			System.out.println("File " + listoffiles[i].getName());
+					  			System.out.println(count+". "+listoffiles[i].getName());
+					  			count++;
 					  		} 
 						}
 						break;
@@ -34,8 +45,19 @@ public class CompanyLockers {
 				case 2: {
 					int option2=0;
 					do {
+						
 					System.out.println("Select an option from the menu\n\t1. Add a new file\n\t2. Delete a file\n\t3. Search for a file\n\t4. Retun to Main Menu");
-					option2 = sc.nextInt();
+					sc = new Scanner(System.in);
+					try {
+						
+						option2 = sc.nextInt();
+						if(option>4) {
+							System.out.println("Invalid Input");
+						}
+					}catch(InputMismatchException e)
+					{
+						System.out.println("Invalid Input");
+					}
 					
 			//Option to create a file
 					if(option2==1) {
@@ -45,9 +67,10 @@ public class CompanyLockers {
 							System.out.println("Enter the name of the file");
 							String newfilename = sc.next();
 							inputfile=new FileOutputStream(newfilename,true);
+							System.out.println("File Succesfully created");
 							
 						}catch(IOException e){
-							System.out.println("error");
+							System.out.println("Error occured");
 						}finally {
 						}
 							if(inputfile != null) {
@@ -63,9 +86,9 @@ public class CompanyLockers {
 			//Option to delete a file
 							boolean deleteflag=false;
 							System.out.println("Enter the name of the file to be deleted");
-							String DeletefileName= sc.next();
+							String DeleteFileName= sc.next();
 							for(File i:listoffiles) {
-								if(i.getName().equals(DeletefileName))
+								if(i.getName().equals(DeleteFileName))
 								{
 									deleteflag=i.delete();
 									System.out.println("Deleted file "+i.getName());
@@ -97,8 +120,6 @@ public class CompanyLockers {
 						}else if(option2==4)
 						{
 							break;
-						}else {
-							System.out.println("invalid input");
 						}
 					}while(option2!=4);
 					break;
@@ -108,9 +129,7 @@ public class CompanyLockers {
 				{
 					break;
 				}
-				default : {
-					System.out.println("Invalid input");
-				}
+				
 			}
 			}while(option!=3);
 	
